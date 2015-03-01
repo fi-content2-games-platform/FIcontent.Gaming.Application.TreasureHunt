@@ -44,6 +44,11 @@ public class ChapterState : GameState
 		// Inherit chapter number & title from index state.
 		chapterNumber = IndexState.selectedChapterNumber;
 		chapterTitle = IndexState.selectedChapterTitle;
+		GUIManager.tts.ClearSay ();
+		GUIManager.tts.SayAdd (chapterTitle, "happy", false);
+		Location location = QuestManager.GetLocation(chapterNumber);
+		GUIManager.tts.SayAdd (location.clueText, "neutral", false);
+		GUIManager.tts.SayAdd (location.clueText2, "neutral", false);
 	}
 
 	/// <summary>
