@@ -46,6 +46,11 @@ public class TutorialState : GameState
 		GUIManager.tts.SayAdd (tutLeft, "neutral", false);
 		GUIManager.tts.SayAdd (tutRight, "neutral", false);
 	}
+	public static void preloadTTS(){
+		GUIManager.tts.GetAudioClip (title, "happy", false);
+		GUIManager.tts.GetAudioClip (tutLeft, "neutral", false);
+		GUIManager.tts.GetAudioClip (tutRight, "neutral", false);
+	}
 	/// <summary>
 	/// OnGui method.
 	/// </summary>
