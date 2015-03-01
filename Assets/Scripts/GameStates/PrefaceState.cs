@@ -61,6 +61,10 @@ public class PrefaceState : GameState
 		{
 			firstTime = false;
 		}
+		GUIManager.tts.ClearSay ();
+		GUIManager.tts.SayAdd (title, "happy", false);
+		GUIManager.tts.SayAdd (storyLeft, "neutral", false);
+		GUIManager.tts.SayAdd (storyRight, "neutral", false);
 	}
 
 	/// <summary>
