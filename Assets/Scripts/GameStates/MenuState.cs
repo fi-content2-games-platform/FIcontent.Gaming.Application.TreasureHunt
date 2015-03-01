@@ -31,7 +31,16 @@ public class MenuState : GameState
 	private static string title = "AR\nTreasure\nHunt";
 
 	private static string popupText = "Would you like to start a new game?\nYour current progress will be lost.";
-
+	
+	/// <summary>
+	/// Called on entering the game state.
+	/// </summary>
+	/// <param name="previousState">Previous state.</param>
+	override public void OnEnter(GameState previousState)
+	{
+		GUIManager.tts.ClearSay ();
+		GUIManager.tts.SayAdd (MenuState.title, "happy", false);
+	}
 	/// <summary>
 	/// OnGui method.
 	/// </summary>
