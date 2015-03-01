@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Xml.Linq;
 using System.IO;
+using System.Collections.Generic;
 
 namespace UnityEngine
 {
@@ -48,19 +49,53 @@ namespace UnityEngine
 					if (this.tts_base_url == null)
 						return null;
 					return new WWW (this.tts_base_url
-				    	            + "say?input[type]=TEXT&output[type]=AUDIO&output[format]=WAVE_FILE"
-				        	        + "&input[locale]=" + WWW.EscapeURL(locale)
-				 	          	    + "&input[content]=" + WWW.EscapeURL (text)
-				            	    + "&voice[gender]=" + this.GenderToString(this.voice_gender)
-				        			+ "&voice[age]=" + this.voice_age
-					                + "&voice[name]=" + WWW.EscapeURL (this.voice_name)
-					                + "&voice[variant]=" + this.voice_variant
-					                + "&utterance[style]=" + WWW.EscapeURL(styleid)
-					                + "&FAKEEXT=.wav"
+				    	            + this.getUrl (text, locale, styleid)
 					                );
 				}
-		
+				private string getUrl(string text, string locale, string styleid){
+			 		return "say?input[type]=TEXT&output[type]=AUDIO&output[format]=WAVE_FILE"
+								+ "&input[locale]=" + WWW.EscapeURL (locale)
+								+ "&input[content]=" + WWW.EscapeURL (text)
+								+ "&voice[gender]=" + this.GenderToString (this.voice_gender)
+								+ "&voice[age]=" + this.voice_age
+								+ "&voice[name]=" + WWW.EscapeURL (this.voice_name)
+								+ "&voice[variant]=" + this.voice_variant
+								+ "&utterance[style]=" + WWW.EscapeURL (styleid)
+								+ "&FAKEEXT=.wav";
+				}
+				private Dictionary<string,AudioClip> cache = new Dictionary<string, AudioClip>();
+				private AudioClip cacheLookup(string text, string locale, string styleid, bool threeD) {
+					string key = (threeD? "0" : "1") + this.getUrl (text, locale, styleid);
+					if (cache.ContainsKey (key)) {
+						AudioClip value = null;
+						bool found = cache.TryGetValue(key, out value);
+						if(found) {
+							return value;
+						}
+					}
+					return null;
+				}
+				private AudioClip cacheLookupAdd(string text, string locale, string styleid, bool threeD) {
+					AudioClip ret = this.cacheLookup(text, locale, styleid, threeD);
+					if (ret == null) {
+						ret = this.cacheAdd(text, locale, styleid, threeD);
+					}
+					return ret;
+				}
+				private AudioClip cacheAdd(string text, string locale, string styleid, bool threeD) {
+					string key = (threeD? "0" : "1") + this.getUrl (text, locale, styleid);
+					if (cache.ContainsKey (key)) {
+						cache.Remove(key);
+					}
+					AudioClip ret = this.baseGetAudioClip(text, locale, styleid, threeD);
+					cache.Add(key, ret);
+					return ret;
+				}
 				public AudioClip GetAudioClip (string text, string locale, string styleid, bool threeD)
+				{
+					return this.cacheLookupAdd(text, locale, styleid, threeD);
+				}
+				private AudioClip baseGetAudioClip (string text, string locale, string styleid, bool threeD)
 				{
 					WWW r = this.GetWWWClip (text, locale, styleid);
 					if (r == null) {
