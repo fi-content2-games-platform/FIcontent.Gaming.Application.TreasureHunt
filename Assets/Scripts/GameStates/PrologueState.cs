@@ -45,6 +45,12 @@ public class PrologueState : GameState
 		GUIManager.tts.SayAdd (title, "happy", false);
 		GUIManager.tts.SayAdd (chapterText, "neutral", false);
 	}
+	public static void preloadTTS(){
+		Location location = QuestManager.GetLocation(0);
+		string chapterText = location.clueText;
+		GUIManager.tts.GetAudioClip (title, "happy", false);
+		GUIManager.tts.GetAudioClip (chapterText, "neutral", false);
+	}
 	
 	override public void OnDisplay()
 	{
