@@ -50,7 +50,18 @@ public class HelpState : GameState
 	{
 		// Inherit chapter number & title from index state.
 		chapterNumber = IndexState.selectedChapterNumber;
-		chapterTitle = IndexState.selectedChapterTitle;
+		chapterTitle = IndexState.selectedChapterTitle + " Help";
+		GUIManager.tts.ClearSay ();
+		GUIManager.tts.SayAdd (chapterTitle, "happy", false);
+		Puzzle puzzle = QuestManager.GetPuzzle(chapterNumber);
+		if (puzzle.hasHelpFunction) {
+			if (puzzle.IsTier1HelpActive ()) {
+				GUIManager.tts.SayAdd (puzzle.tier1HelpText, "neutral", false);
+			}
+			if(puzzle.IsTier2HelpActive()){
+				GUIManager.tts.SayAdd (puzzle.tier2HelpText, "neutral", false);
+			}
+		}
 	}
 
 	/// <summary>
@@ -68,7 +79,7 @@ public class HelpState : GameState
 		
 		float halfWidth = 0.5f * width;
 		
-		GUI.Label(new Rect(0.05f*halfWidth, 0.15f*height, 1, 1), chapterTitle + " Help", GUIManager.boldLabelStyle);
+		GUI.Label(new Rect(0.05f*halfWidth, 0.15f*height, 1, 1), chapterTitle, GUIManager.boldLabelStyle);
 		
 		if (location.IsDistanceHelpActive() || location.IsDirectionHelpActive())
 		{
