@@ -38,7 +38,14 @@ public class TutorialState : GameState
 		"The game should be played by day with nice weather and good lighting conditions for the image recognition to work best.\n\n" +
 		"Back or front light might be really bad for the recognition.\n\n" +
 		"Try different angles or distances to your target if you have trouble. You can also try to lower the device and aim at the target again.";
-
+	
+	override public void OnEnter(GameState previousState)
+	{
+		GUIManager.tts.ClearSay ();
+		GUIManager.tts.SayAdd (title, "happy", false);
+		GUIManager.tts.SayAdd (tutLeft, "neutral", false);
+		GUIManager.tts.SayAdd (tutRight, "neutral", false);
+	}
 	/// <summary>
 	/// OnGui method.
 	/// </summary>
