@@ -40,6 +40,9 @@ public class MenuState : GameState
 	{
 		GUIManager.tts.ClearSay ();
 		GUIManager.tts.SayAdd (MenuState.title, "happy", false);
+		PrefaceState.preloadTTS();
+		PrologueState.preloadTTS ();
+		TutorialState.preloadTTS ();
 	}
 	/// <summary>
 	/// OnGui method.
