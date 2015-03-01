@@ -49,6 +49,8 @@ public class EpilogueState : GameState
 	/// <param name="previousState">Previous state.</param>
 	override public void OnEnter(GameState previousState)
 	{
+		GUIManager.tts.ClearSay ();
+		GUIManager.tts.SayAdd (epilogueTextNormal, "happy", false);
 		// Activate chest, position it & animate it.
 		Camera cam = GameObject.FindWithTag("ChestCamera").camera;
 		GUIManager.treasureChest.transform.localPosition = cam.ViewportToWorldPoint(new Vector3(0.25f, 0.25f, 10));
