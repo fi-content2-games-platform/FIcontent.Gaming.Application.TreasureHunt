@@ -45,7 +45,11 @@ public class PrefaceState : GameState
 		"I'll give you hints on where to go and what to do. If you can find the treasure, you can keep it. I certainly have no use for it...\n\n" +
 		"You'll need to collect four pieces of a treasure map which are hidden in the city. Each one is protected by some contraption or puzzle.\n\n" +
 		"Humans usually can't see these kinds of mechanisms but as long as you travel with me, my magical aura surrounds you and helps you see.";
-
+	public static void preloadTTS(){
+		GUIManager.tts.GetAudioClip (title, "happy", false);
+		GUIManager.tts.GetAudioClip (storyLeft, "neutral", false);
+		GUIManager.tts.GetAudioClip (storyRight, "neutral", false);
+	}
 	/// <summary>
 	/// Called on entering the game state.
 	/// </summary>
