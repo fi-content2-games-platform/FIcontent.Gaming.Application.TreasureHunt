@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="clausius60" size="10.000000 5.625000" />
+    <ImageTarget name="clausius62" size="10.000000 5.625000" />
+    <ImageTarget name="weinberg24" size="10.000000 13.333333" />
+    <ImageTarget name="cab" size="10.000000 5.625000" />
+    <ImageTarget name="weinberg37" size="10.000000 13.333333" />
+    <ImageTarget name="clausius35" size="10.000000 7.500000" />
+    <ImageTarget name="polyterrasse" size="10.000000 7.500000" />
+    <ImageTarget name="central" size="10.000000 10.062805" />
+  </Tracking>
+</QCARConfig>
