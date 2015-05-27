@@ -27,11 +27,30 @@ using System.Collections;
 /// </summary>
 public class PrologueState : GameState
 {
+	private static string title = "Prologue";
 	// No signal string
 	private static string noSignal = "Waiting for GPS signal...";
 
 	// Quaternion to keep track of arrow rotation for direction arrow.
 	private static Quaternion arrowRotation = Quaternion.Euler(0, 0, 0);
+	/// <summary>
+	/// Called on entering the game state.
+	/// </summary>
+	/// <param name="previousState">Previous state.</param>
+	override public void OnEnter(GameState previousState)
+	{
+		GUIManager.tts.ClearSay ();
+		Location location = QuestManager.GetLocation(0);
+		string chapterText = location.clueText;
+		GUIManager.tts.SayAdd (title, "happy", false);
+		GUIManager.tts.SayAdd (chapterText, "neutral", false);
+	}
+	public static void preloadTTS(){
+		Location location = QuestManager.GetLocation(0);
+		string chapterText = location.clueText;
+		GUIManager.tts.GetAudioClip (title, "happy", false);
+		GUIManager.tts.GetAudioClip (chapterText, "neutral", false);
+	}
 	
 	override public void OnDisplay()
 	{
@@ -46,7 +65,7 @@ public class PrologueState : GameState
 		GUIManager.GroupLeftPage(delegate(float w, float h) {
 			string chapterText = location.clueText;
 			
-			GUI.Label(new Rect(0, 0, 1, 1), "Prologue", GUIManager.boldLabelStyle);
+			GUI.Label(new Rect(0, 0, 1, 1), title, GUIManager.boldLabelStyle);
 			GUI.Label(new Rect(0, h/11, w, h), chapterText, GUIManager.multilineLabelStyle);
 		});
 		

@@ -83,6 +83,8 @@ public class GUIManager : MonoBehaviour
 	// GUI Styles initialized only once.
 	public static bool init;
 	
+	public static TTS tts = new TTS ("http://fiware.tts.mivoq.it/");
+
 	#endregion
 	
 	#region MonoBehaviour Methods
@@ -132,6 +134,11 @@ public class GUIManager : MonoBehaviour
 		mapPiece2Shadow = Resources.Load("Images/Map/MapPiece2Shadow") as Texture2D;
 		mapPiece3Shadow = Resources.Load("Images/Map/MapPiece3Shadow") as Texture2D;
 		mapPiece4Shadow = Resources.Load("Images/Map/MapPiece4Shadow") as Texture2D;
+
+		tts.SetDefaultLocale ("en");
+		tts.SetVoiceGender (TTS.Gender.Female);
+		tts.SetVoiceVariant (1);
+		tts.SetAudioSource (gameObject.AddComponent<AudioSource>());
 	}
 	
 	#endregion
@@ -145,6 +152,7 @@ public class GUIManager : MonoBehaviour
 	{
 		// Draw the background texture according to the current screensize
 		bookBackground.guiTexture.pixelInset = new Rect(-Screen.width/2, -Screen.height/2, Screen.width, Screen.height);
+		tts.OnUpdate ();
 	}
 
 	/// <summary>

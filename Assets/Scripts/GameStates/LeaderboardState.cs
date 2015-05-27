@@ -60,6 +60,7 @@ public class LeaderboardState : GameState
 	{
 		// Set internal lb to null
 		leaderboard = null;
+		GUIManager.tts.ClearSay ();
 		// Start update
 		Leaderboard.Instance.UpdateLeaderboard();
 	}

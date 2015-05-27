@@ -56,6 +56,7 @@ public class IndexState : GameState
 		{
 			hasPopover = true;
 		}
+		GUIManager.tts.ClearSay ();
 	}
 
 	/// <summary>
