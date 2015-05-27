@@ -28,6 +28,14 @@ using System.Collections;
 public class CreditsState : GameState
 {
 	/// <summary>
+	/// Called on entering the game state.
+	/// </summary>
+	/// <param name="previousState">Previous state.</param>
+	override public void OnEnter(GameState previousState)
+	{
+		GUIManager.tts.ClearSay ();
+	}
+	/// <summary>
 	/// OnGui method.
 	/// </summary>
 	override public void OnDisplay()

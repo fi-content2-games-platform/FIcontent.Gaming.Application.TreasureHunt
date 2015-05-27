@@ -54,6 +54,7 @@ public class CameraState : GameState
 	/// <param name="previousState">Previous state.</param>
 	override public void OnEnter(GameState previousState)
 	{
+		GUIManager.tts.ClearSay ();
 		// Activate camera.
 		CameraDevice.Instance.Init(CameraDevice.CameraDirection.CAMERA_DEFAULT);
 		CameraDevice.Instance.SetFocusMode(CameraDevice.FocusMode.FOCUS_MODE_CONTINUOUSAUTO);
